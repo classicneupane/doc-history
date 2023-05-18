@@ -2,7 +2,7 @@
   "name": "@tn/doc-history",
   "version": "1.0.1",
   "description": "Document History",
-  "repository": "https://github.com/truronews/doc-history",
+  "repository": "https://github.com/classicneupane/doc-history",
   "license": "MIT",
   "type": "module",
   "exports": {
