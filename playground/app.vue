@@ -31,8 +31,12 @@ onMounted(() => {
   <v-app>
     <v-main>
       <v-container>
-        <DocumentHistoryListItem v-for="item in docHistory" :item="item" :current-version="item.id===docData.versionId">
-        </DocumentHistoryListItem>
+        <DocumentHistoryListItem
+          v-for="item in docHistory"
+          :key="item.id"
+          :item="item"
+          :current-version="item.id===docData.versionId"
+        />
       </v-container>
     </v-main>
   </v-app>

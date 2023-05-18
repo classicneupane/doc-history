@@ -11,10 +11,10 @@ const props = defineProps<{
     theme?: 'light' | 'dark'
 }>()
 
-const dialogs = ref({
-    comparision: false,
-    restore: false
-})
+// const dialogs = ref({
+//     comparision: false,
+//     restore: false
+// })
 
 function parseDate(d: any) {
     try {
@@ -35,15 +35,15 @@ function fromNow(d: Date) {
     }
 }
 
-const restoreItem = ref({} as DocHistoryFirestore)
-function showConfirm(item:any) {
-    restoreItem.value = item
-    dialogs.value.restore = true
-}
+// const restoreItem = ref({} as DocHistoryFirestore)
+// function showConfirm(item:any) {
+//     restoreItem.value = item
+//     dialogs.value.restore = true
+// }
 
-function cancelRestore() {
-    restoreItem.value = {} as DocHistoryFirestore
-}
+// function cancelRestore() {
+//     restoreItem.value = {} as DocHistoryFirestore
+// }
 
 const resotreData = ref({
     id: '',
@@ -62,46 +62,66 @@ function restore(item: DocHistoryFirestore) {
     })
 }
 
-function isActiveVersion(item: DocHistoryFirestore, index?: number) {
-    // if(!props.currentVersionId && index===0){
-    //     return true
-    // }
-    // return item.id === props.currentVersionId
+function isActiveVersion() {
     return props.currentVersion
 }
 
 </script>
 <template>
-    <div
-        class="dh-list-item"
-        :class="isActiveVersion(item) ? `_dh-list-item-active-${theme || 'light'}` : ''"
-     >
-        <slot name="item" :item="item">
-            <div class="dh-list-item-content">
-                <slot name="display" :item="item">
-                    {{ item }}
-                </slot>
-            </div>
-            <slot name="action" :restore="restore" :item="item">
-                <div class="mt-2">
-                    <v-btn v-if="!isActiveVersion(item)" variant="tonal" rounded size="small"
-                        :loading="resotreData.id === item.id && resotreData.loading" color="primary" class="text-none mx-1"
-                        @click="restore(item)">
-                        Restore <v-icon class="ml-1">
-                            mdi-restore
-                        </v-icon>
-                    </v-btn>
-                    <v-chip v-if="isActiveVersion(item)" variant="flat" color="primary" clas="mx-1">
-                        Current Version
-                    </v-chip>
-                    <v-chip color="info" class="mx-1">
-                        {{ fromNow(parseDate(item.data.docUpdatedAt)) }}
-                    </v-chip>
-                </div>
-            </slot>
+  <div
+    class="dh-list-item"
+    :class="isActiveVersion() ? `_dh-list-item-active-${theme || 'light'}` : ''"
+  >
+    <slot
+      name="item"
+      :item="item"
+    >
+      <div class="dh-list-item-content">
+        <slot
+          name="display"
+          :item="item"
+        >
+          {{ item }}
         </slot>
-
-    </div>
+      </div>
+      <slot
+        name="action"
+        :restore="restore"
+        :item="item"
+      >
+        <div class="mt-2">
+          <v-btn
+            v-if="!isActiveVersion()"
+            variant="tonal"
+            rounded
+            size="small"
+            :loading="resotreData.id === item.id && resotreData.loading"
+            color="primary"
+            class="text-none mx-1"
+            @click="restore(item)"
+          >
+            Restore <v-icon class="ml-1">
+              mdi-restore
+            </v-icon>
+          </v-btn>
+          <v-chip
+            v-if="isActiveVersion()"
+            variant="flat"
+            color="primary"
+            clas="mx-1"
+          >
+            Current Version
+          </v-chip>
+          <v-chip
+            color="info"
+            class="mx-1"
+          >
+            {{ fromNow(parseDate(item.data.docUpdatedAt)) }}
+          </v-chip>
+        </div>
+      </slot>
+    </slot>
+  </div>
 </template>
 
 <style lang="scss">
