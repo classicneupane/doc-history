@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "doc-history-playground",
+  "dependencies": {
+    "@invictus.codes/nuxt-vuetify": "^0.2.20",
+    "@mdi/font": "^7.2.96",
+    "sass": "^1.62.1"
+  }
+}
