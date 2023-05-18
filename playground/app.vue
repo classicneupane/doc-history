@@ -2,11 +2,10 @@
 import { ref, onMounted } from 'vue'
 import { collection, getDoc, doc } from 'firebase/firestore'
 import { useNuxtApp } from 'nuxt/app';
-import { useDocumentHistory } from '../dist/runtime/composables/useDocumentHistory';
-import DocumentHistoryListItem from '../src/runtime/components/DocumentHistoryListItem.vue';
+import { useDocumentHistory } from './.nuxt/imports';
 
 const fstore = useNuxtApp().$firestore as any
-const { list } = useDocumentHistory(fstore)
+const {list} = useDocumentHistory(fstore)
 
 const col = 'cms_v3';
 const docId = 'goOwCurNlg8UQZrrvKIg';
@@ -36,7 +35,7 @@ onMounted(() => {
           :key="item.id"
           :item="item"
           :current-version="item.id===docData.versionId"
-        />
+        ></DocumentHistoryListItem>
       </v-container>
     </v-main>
   </v-app>

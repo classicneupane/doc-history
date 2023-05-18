@@ -16,11 +16,6 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: 'documentHistory'
   },
 
-  // defaults: {
-  //   collection: "document_history",
-  //   app: "PLUGIN"
-  // },
-
   setup (userOptions, nuxt) {
     const resolver = createResolver(import.meta.url)
 
@@ -35,8 +30,8 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     addComponent({
-      name: 'DocumentHistory', 
-      filePath: resolver.resolve('runtime/components/DocumentHistory.vue')
+      name: 'DocumentHistoryListItem', 
+      filePath: resolver.resolve('runtime/components/DocumentHistoryListItem.vue')
     })
   }
 })

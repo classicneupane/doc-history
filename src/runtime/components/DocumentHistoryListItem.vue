@@ -2,19 +2,14 @@
 import { ref } from 'vue'
 import { DocHistoryFirestore } from '../types';
 import moment from 'moment'
-import { useDocumentHistory } from '../composables/useDocumentHistory';
 import { useNuxtApp } from 'nuxt/app';
+import { useDocumentHistory } from '../composables/useDocumentHistory';
 
 const props = defineProps<{
     item: DocHistoryFirestore
     currentVersion?: boolean
     theme?: 'light' | 'dark'
 }>()
-
-// const dialogs = ref({
-//     comparision: false,
-//     restore: false
-// })
 
 function parseDate(d: any) {
     try {
@@ -34,16 +29,6 @@ function fromNow(d: Date) {
         return d
     }
 }
-
-// const restoreItem = ref({} as DocHistoryFirestore)
-// function showConfirm(item:any) {
-//     restoreItem.value = item
-//     dialogs.value.restore = true
-// }
-
-// function cancelRestore() {
-//     restoreItem.value = {} as DocHistoryFirestore
-// }
 
 const resotreData = ref({
     id: '',
