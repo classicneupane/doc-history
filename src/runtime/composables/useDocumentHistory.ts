@@ -90,15 +90,21 @@ export function useDocumentHistory(
     }
 
     const versionData = await getData('', id) as DocHistory
+
+    const docActivity = versionData.docActivity || [];
+    docActivity.push({
+      appliedAt: new Date()
+    })
+
     const newData = { ...versionData, versionId: id }
 
-    console.log(versionData.docCollection)
     await updateDoc(
       doc(
         collectionFactory(versionData.docCollection), versionData.docId
       ),
       newData
     )
+    updateDoc(doc(db, id), { docActivity })
   }
 
   return {

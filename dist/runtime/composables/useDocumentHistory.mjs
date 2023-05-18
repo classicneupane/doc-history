@@ -69,8 +69,11 @@ export function useDocumentHistory(firestore) {
       };
     };
     const versionData = await getData("", id);
+    const docActivity = versionData.docActivity || [];
+    docActivity.push({
+      appliedAt: /* @__PURE__ */ new Date()
+    });
     const newData = { ...versionData, versionId: id };
-    console.log(versionData.docCollection);
     await updateDoc(
       doc(
         collectionFactory(versionData.docCollection),
@@ -78,6 +81,7 @@ export function useDocumentHistory(firestore) {
       ),
       newData
     );
+    updateDoc(doc(db, id), { docActivity });
   }
   return {
     addDocHistory,

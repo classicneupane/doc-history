@@ -5,6 +5,9 @@ export interface DocHistoryParams {
   docUserEmail?: string;
 }
 
+export interface DocActivity{
+  appliedAt: Date
+}
 
 export interface DocHistory{
   docId: string
@@ -12,7 +15,7 @@ export interface DocHistory{
   docUpdatedAt: Date
   docApp: string
   docUserEmail: string
-  docAppliedAt: Date
+  docActivity: DocActivity[]
 }
 
 export interface DocHistoryFirestore{
