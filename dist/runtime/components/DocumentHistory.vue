@@ -3,19 +3,21 @@ import { ref, onMounted } from 'vue'
 import { useDocumentHistory } from '../composables/useDocumentHistory'
 import moment from 'moment'
 import { DocHistoryFirestore } from '../types'
+import {useNuxtApp} from '#app'
 
 const props = defineProps<{
-    id: string,
-    firestore: any
+    docId: string,
     currentVersionId: string
     theme?: 'light' | 'dark'
 }>()
 
-if (!props.firestore) {
+const { $firestore } = useNuxtApp() as any;
+
+if (!$firestore) {
     throw new Error("Firestore required")
 }
 
-const { list, restoreVersion } = useDocumentHistory(props.firestore)
+const { list, restoreVersion } = useDocumentHistory($firestore)
 
 const dialogs = ref({
     comparision: false,
@@ -26,7 +28,7 @@ const versions = ref([] as DocHistoryFirestore[] | any[])
 const compare = ref([] as DocHistoryFirestore[])
 
 async function fetchDocHistory() {
-    versions.value = await list(props.id)
+    versions.value = await list(props.docId)
 }
 
 function addToCompare(item: DocHistoryFirestore) {
@@ -57,7 +59,7 @@ function fromNow(d: Date) {
 }
 
 const restoreItem = ref({} as DocHistoryFirestore)
-function showConfirm(item) {
+function showConfirm(item:any) {
     restoreItem.value = item
     dialogs.value.restore = true
 }
