@@ -75,6 +75,7 @@ function isActiveVersion() {
         :item="item"
       >
         <div class="mt-2">
+          <slot name="action-prepend"></slot>
           <v-btn
             v-if="!isActiveVersion()"
             variant="tonal"
@@ -103,6 +104,7 @@ function isActiveVersion() {
           >
             {{ fromNow(parseDate(item.data.docUpdatedAt)) }}
           </v-chip>
+          <slot name="action-append"></slot>
         </div>
       </slot>
     </slot>
