@@ -25,6 +25,10 @@ onMounted(() => {
   })
 })
 
+function onRestoreVersion(id: string){
+  docData.value.versionId = id;
+}
+
 </script>
 <template>
   <v-app>
@@ -35,6 +39,7 @@ onMounted(() => {
           :key="item.id"
           :item="item"
           :current-version="item.id===docData.versionId"
+          @restore:success="onRestoreVersion"
         ></DocumentHistoryListItem>
       </v-container>
     </v-main>

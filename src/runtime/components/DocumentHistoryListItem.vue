@@ -11,6 +11,8 @@ const props = defineProps<{
     theme?: 'light' | 'dark'
 }>()
 
+const emit = defineEmits(['restore:success', 'restore:error'])
+
 function parseDate(d: any) {
     try {
         return d.toDate()
@@ -44,6 +46,9 @@ function restore(item: DocHistoryFirestore) {
 
     restoreVersion(item.id).then(() => {
         resotreData.value.loading = false
+        emit("restore:success", item.id)
+    }).catch(e=>{
+      emit("restore:error", e)
     })
 }
 
@@ -114,7 +119,7 @@ function isActiveVersion() {
 <style lang="scss">
 @import "./colors.scss";
 
-.dh-list {
+// .dh-list {
     .dh-list-item {
         padding: 20px;
         border-radius: 10px;
@@ -139,5 +144,5 @@ function isActiveVersion() {
         background-color: $primary-hover-dark;
     }
 
-}
+// }
 </style>
